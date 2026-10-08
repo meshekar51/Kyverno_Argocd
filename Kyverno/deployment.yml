@@ -13,10 +13,10 @@ spec:
     metadata:
       labels:
         app: nginx
+        nginx: 'chandra'
     spec:
       containers:
       - name: nginx
-        nginx: 'chandra'
         image: nginx:1.14.2
         ports:
         - containerPort: 80
