@@ -1,0 +1,20 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: mutate-resourcequota
+spec:
+  rules:
+  - name: add-default-quota
+    match:
+      any:
+      - resources:
+          kinds:
+          - ResourceQuota
+    mutate:
+      patchStrategicMerge:
+        spec:
+          hard:
+            requests.cpu: "1"
+            requests.memory: "4Gi"
+            limits.cpu: "1"
+            limits.memory: "4Gi"
