@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: nginx
-        nginx: 'pratik'
+        nginx: 'chandra'
     spec:
       containers:
       - name: nginx
