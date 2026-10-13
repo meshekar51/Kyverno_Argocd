@@ -16,7 +16,7 @@ spec:
         operations: ['CREATE', 'UPDATE']
         resources: ['pods']
   matchImageReferences:
-    - glob: 'docker.io/kyverno/kyverno*'
+    - glob: 'chandrag1990/flask-app*'
   attestors:
     - name: cosign
       cosign:
