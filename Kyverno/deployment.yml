@@ -15,8 +15,11 @@ spec:
         app: nginx
         nginx: 'chandra'
     spec:
+      imagePullSecrets:
+      - name: dockerhub-secret
+
       containers:
-      - name: nginx
-        image: nginx:1.14.2
+      - name: cosign-image
+        image: chandrag1990/flask-app:sha256-213adca25163349ff8ce7bab763322721aaad57af0616cf47fe6d86da9dcb13a.
         ports:
         - containerPort: 80
