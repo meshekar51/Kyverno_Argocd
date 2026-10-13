@@ -1,0 +1,33 @@
+apiVersion: policies.kyverno.io/v1
+kind: ImageValidatingPolicy
+metadata:
+  name: verify-image-ivpol
+spec:
+  webhookConfiguration:
+    timeoutSeconds: 15
+  evaluation:
+    background:
+      enabled: false
+  validationActions: [Deny]
+  matchConstraints:
+    resourceRules:
+      - apiGroups: ['']
+        apiVersions: ['v1']
+        operations: ['CREATE', 'UPDATE']
+        resources: ['pods']
+  matchImageReferences:
+    - glob: 'docker.io/kyverno/kyverno*'
+  attestors:
+    - name: cosign
+      cosign:
+        key:
+          data: |
+            -----BEGIN PUBLIC KEY-----
+            MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEwmjPF92358SgnEJetnI9zfPH1cXd
+            k1R98QdsIS20vqfPb5CnE9nwg9HN89InEnHVAf/8FDcnA74gzJ/JZyh3lA==
+            -----END PUBLIC KEY-----
+  validations:
+    - expression: >-
+        images.containers.map(image, verifyImageSignatures(image, [attestors.cosign])).all(e ,e > 0)
+      message: >-
+        failed the image Signature verification chandra
