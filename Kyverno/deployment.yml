@@ -20,7 +20,7 @@ spec:
 
       containers:
       - name: cosign-image
-        image: chandrag1990/flask-app:29
+        image: chandrag1990/flask-app:22
         imagePullPolicy: Always
         ports:
         - containerPort: 80
